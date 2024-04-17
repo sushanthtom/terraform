@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: boomi-pv
+  namespace: boomi
+spec:
+  capacity:
+    storage: 250Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-claim
+  nfs:
+    server: 10.0.2.4
+    path: /export/data                                  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: boomi-pvc
+  namespace: boomi
+spec:
+  storageClassName: nfs-claim
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 250Gi
+
